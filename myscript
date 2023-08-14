@@ -1,4 +1,11 @@
 #!/bin/bash
 
-sudo timedatectl set-timezon Russia/Moscow
+# set time Russia/Moscow (+3)
+sudo timedatectl set-timezone Russia/Moscow
+
+# set locale
+sudo dpkg-reconfigure locales
+
+# set 2498 port
+sudo sed -i 's/Port 22/Port 2498/g' /etc/ssh/sshd_config
 
