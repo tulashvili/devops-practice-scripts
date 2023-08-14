@@ -9,3 +9,17 @@ sudo dpkg-reconfigure locales
 # set 2498 port
 sudo sed -i 's/Port 22/Port 2498/g' /etc/ssh/sshd_config
 
+# add `usertest` to the system
+sudo adduser usertest
+
+# grant sudo rights to `usertest`
+sudo usermod -aG sudo usertest
+
+# Alias for added user
+sudo sed -i 's/# User alias specification/User_Alias TEST_USER = usertest/g' /etc/sudoers
+
+# restrict the rights of the created user to start|stop|restart services systemd
+ 
+
+# automatic analysis of sudoers
+sudo visudo -c
