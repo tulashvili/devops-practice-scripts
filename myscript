@@ -9,6 +9,10 @@ sudo dpkg-reconfigure locales
 # set 2498 port
 sudo sed -i 's/Port 22/Port 2498/g' /etc/ssh/sshd_config
 
+# disable remote login with root
+sudo sed -i 's/PermitRootLogin prohibit-password/ PermitRootLogin no/g' /etc/ssh/sshd_config
+sudo service ssh restart
+
 # add `usertest` to the system
 sudo adduser usertest
 
@@ -16,10 +20,13 @@ sudo adduser usertest
 sudo usermod -aG sudo usertest
 
 # Alias for added user
-sudo sed -i 's/# User alias specification/User_Alias TEST_USER = usertest/g' /etc/sudoers
+sudo sed -i '36i User_Alias TEST_USER = usertest/' /etc/sudoers
+
 
 # restrict the rights of the created user to start|stop|restart services systemd
- 
+sudo sed -i '37i TEST_USER ALL=(ALL) /bin/systemstl start *' 
+sudo sed -i '38i TEST_USER ALL=(ALL) /bin/systemstl stop  *' 
+sudo sed -i '39i TEST_USER ALL=(ALL) /bin/systemstl restart *' 
 
 # automatic analysis of sudoers
 sudo visudo -c
