@@ -30,3 +30,13 @@ sudo sed -i '39i TEST_USER ALL=(ALL) /bin/systemstl restart *'
 
 # automatic analysis of sudoers
 sudo visudo -c
+
+# start nginx
+sudo systemctl start nginx
+sudo systemctl status nginx
+
+# start monit
+sudo systemctl start monit
+sudo systemctl status monit
+
+# 
